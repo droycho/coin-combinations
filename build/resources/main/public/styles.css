@@ -1,0 +1,21 @@
+.jumbotron {
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+
+.well {
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+
+p {
+  font-size: 2em;
+}
+
+#number {
+  height: auto;
+  width: inherit;
+  font-size: 30pt;
+}

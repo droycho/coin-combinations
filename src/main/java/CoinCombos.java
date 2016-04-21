@@ -1,5 +1,35 @@
+import java.util.Map;
+import java.util.HashMap;
+import spark.ModelAndView;
+import spark.template.velocity.VelocityTemplateEngine;
+import static spark.Spark.*;
+
 public class CoinCombos {
-  public static void main(String[] arg) {}
+  public static void main(String[] arg) {
+    staticFileLocation("/public");
+    String layout = "templates/layout.vtl";
+    
+    get("/", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/home.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/results", (request,response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/results.vtl");
+
+      String input = request.queryParams("input");
+      Integer integerInput = Integer.parseInt(input);
+      String changeBack = changeBack(integerInput);
+
+      model.put("integerInput", integerInput);
+      model.put("changeBack", changeBack);
+      model.put("input", request.queryParams("input"));
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+  }
 
     public static String changeBack(Integer input) {
       Integer quarters = 0;
